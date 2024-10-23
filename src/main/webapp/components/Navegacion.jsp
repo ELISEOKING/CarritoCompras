@@ -27,7 +27,7 @@
                 </li>
             </ul>
             <form class="d-flex" role="search">
-                <a href="#" class="btn btn-dark">
+                <a href="ClienteControlador?accion=nuevo" class="btn btn-dark">
                     <i class="fas fa-user-plus"></i> Registrarse
                 </a>
                 &nbsp;
