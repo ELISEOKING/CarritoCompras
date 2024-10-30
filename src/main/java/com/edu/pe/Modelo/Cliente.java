@@ -7,8 +7,8 @@ package com.edu.pe.Modelo;
  */
 public class Cliente {
     private int IdCliente;
-    private String nombre;
-    private String apellido;
+    private String nombres;
+    private String apellidos;
     private String telefono;
     private String correo;
     private String password;
@@ -21,20 +21,20 @@ public class Cliente {
         this.IdCliente = IdCliente;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombres() {
+        return nombres;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getTelefono() {

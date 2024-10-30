@@ -18,20 +18,65 @@
         <jsp:include page="components/Navegacion.jsp"/>
 
         <div class="container-fluid mt-2">
-            <h5>Carrito</h5>
-            <hr/>
-
             <div class="row">
                 <!-- Sección del Carrito -->
-                <div class="col-sm-9">
-                    <div class="card">
+                <div class="col-sm-12">
+                    <div class="card form-registro">
                         <div class="card-body">
-                            
+                            <h5>Reguistrar Cuenta</h5>
+                            <hr/>
+                            <form action="ClienteControlador" method="post">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Nombres: <span class="obligatorio">(*)</span> </label>
+                                            <input value="${cliente.nombres}" type="text" class="form-control" required=""
+                                                   name="nombres" placeholder="Ingrese su nombre"/>
+                                        </div>
+                                    </div> 
+                                    <div class="col-sm-6">
+                                        <div class="mb-3">
+                                            <label>Apellidos: <span class="obligatorio">(*)</span> </label>
+                                            <input value="${cliente.apellidos}" type="text" class="form-control" required=""
+                                                   name="apellidos" placeholder="Ingrese sus apellidos"/>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="mb-3">
+                                            <label>Telefono: </label>
+                                            <input value="${cliente.telefono}" type="tel" class="form-control"
+                                                   name="telefono" placeholder="Ingrese su telefono"/>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="mb-3">
+                                            <label>Correo Electrónico: <span class="obligatorio">(*)</span> </label>
+                                            <input value="${cliente.correo}" type="email" class="form-control"
+                                                   name="correo" placeholder="Ingrese su correo electronico" required=""/>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="mb-3">
+                                            <label>Contraseña: <span class="obligatorio">(*)</span> </label>
+                                            <input value="${cliente.password}" type="password" class="form-control"
+                                                   name="password" placeholder="Ingrese su contraseña" required=""/>
+                                        </div>
+                                    </div> 
+                                </div>
+                                <input type="hidden" name="accion" value="guardar"/>
+                                <button type="submit" class="btn btn-primary">Registrarse</button>
+                            </form>
                         </div> 
                     </div>
                 </div>
                 <!-- Sección del Resumen de Compra -->
-                
+
             </div>
         </div>
 

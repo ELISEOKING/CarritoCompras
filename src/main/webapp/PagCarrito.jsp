@@ -20,7 +20,7 @@
         <jsp:include page="components/Navegacion.jsp"/>
 
         <div class="container-fluid mt-2">
-            <h5>Carrito</h5>
+            <h5>Mi Carrito</h5>
             <hr/>
 
             <div class="row">

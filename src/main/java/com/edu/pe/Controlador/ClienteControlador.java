@@ -1,4 +1,3 @@
-
 package com.edu.pe.Controlador;
 
 import com.edu.pe.Modelo.Cliente;
@@ -16,30 +15,51 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet("/ClienteControlador")
 public class ClienteControlador extends HttpServlet {
-    
+
     private final String pagNuevo = "PagRegistrarCliente.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String accion = request.getParameter("accion");
-        
+
         switch (accion) {
             case "nuevo":
                 Nuevo(request, response);
+                break;
+            case "guardar":
+                Guardar(request, response);
                 break;
             default:
                 throw new AssertionError();
         }
     }
-    
+
+    protected void Guardar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+
+        Cliente obj = new Cliente();
+        obj.setNombres(request.getParameter("nombres"));
+        obj.setApellidos(request.getParameter("apellidos"));
+        obj.setTelefono(request.getParameter("telefono"));
+        obj.setCorreo(request.getParameter("correo"));
+        obj.setPassword(request.getParameter("password"));
+
+        
+        
+        
+        request.setAttribute("cliente", obj);
+        request.getRequestDispatcher(pagNuevo).forward(request, response);
+    }
+
     protected void Nuevo(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         request.setAttribute("cliente", new Cliente());
-        
+
         request.getRequestDispatcher(pagNuevo).forward(request, response);
     }
 
