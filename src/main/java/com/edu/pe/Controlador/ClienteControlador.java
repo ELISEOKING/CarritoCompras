@@ -1,6 +1,7 @@
 package com.edu.pe.Controlador;
 
 import com.edu.pe.Modelo.Cliente;
+import com.edu.pe.Modelo.DAO.ClienteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class ClienteControlador extends HttpServlet {
 
     private final String pagNuevo = "PagRegistrarCliente.jsp";
+    private ClienteDAO cliDAO = new ClienteDAO();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -47,9 +49,24 @@ public class ClienteControlador extends HttpServlet {
         obj.setCorreo(request.getParameter("correo"));
         obj.setPassword(request.getParameter("password"));
 
-        
-        
-        
+        if (cliDAO.ExisteCorreo(obj.getCorreo().trim()) == false) {
+
+            int result = cliDAO.Guardar(obj);
+
+            if (result > 0) {
+                request.getSession().setAttribute("success", "Cuenta registrada");
+                response.sendRedirect("ClienteControlador?accion=nuevo");
+                return;
+            } else {
+                request.getSession().setAttribute("error", "No se pudo registrar cuenta!");
+
+            }
+
+        } else {
+            request.getSession().setAttribute("error", "El correo " + obj.getCorreo() + " " + "ya se encuentra registrado!");
+
+        }
+
         request.setAttribute("cliente", obj);
         request.getRequestDispatcher(pagNuevo).forward(request, response);
     }
