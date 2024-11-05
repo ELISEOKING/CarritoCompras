@@ -13,6 +13,10 @@ public class Cliente {
     private String correo;
     private String password;
 
+    public String nombresCompletos(){
+        return (nombres + " " + apellidos).toUpperCase();
+    }
+    
     public int getIdCliente() {
         return IdCliente;
     }
