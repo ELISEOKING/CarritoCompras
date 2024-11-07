@@ -26,6 +26,13 @@
                         <i class="fa fa-shopping-cart"></i> (<span class="fw-bold">${sessionScope.carrito != null? sessionScope.carrito.size() : 0}</span>) Carrito
                     </a>
                 </li>
+                <c:if test="${sessionScope.usuario != null}">
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="PedidoControlador?accion=mis_pedidos">
+                            <i class="fa fa-receipt"></i> Mis Pedidos
+                        </a>
+                    </li>
+                </c:if>
             </ul>
             <form class="d-flex">
                 <c:if test="${sessionScope.usuario == null}">

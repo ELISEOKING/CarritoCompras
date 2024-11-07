@@ -2,9 +2,13 @@
     background-color: #337dff;
     color: white;
 }
+.modal-header{
+    background-color: #337dff;
+    color: white;
+}
 .obligatorio{
     color: red;
-    
+
 }
 .form-registro{
     max-width: 600px;
