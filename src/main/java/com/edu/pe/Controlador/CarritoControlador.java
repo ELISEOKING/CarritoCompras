@@ -11,7 +11,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+/**
+ *
+ * @author ENOC
+ */
 public class CarritoControlador extends HttpServlet {
 
     private String PagListarCarrito = "PagCarrito.jsp";
