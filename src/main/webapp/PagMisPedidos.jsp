@@ -46,17 +46,16 @@
                                                 <td>${item.fecha}</td>
                                                 <td>${item.total}</td>
                                                 <td>${item.estado}</td> 
-                                                <td>
-                                                    <!-- Button trigger modal -->
-                                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ModalDetalle">
+                                                <td> 
+                                                    <button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ModalDetalle${item.idPedido}">
                                                         Ver
                                                     </button>
                                                     <!-- Modal -->
-                                                    <div class="modal fade" id="ModalDetalle" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal fade" id="ModalDetalle${item.idPedido}" tabindex="-1" aria-labelledby="exampleModalLabel${item.idPedido}" aria-hidden="true">
                                                         <div class="modal-dialog modal-lg">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">PEDIDOS</h1>
+                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel${item.idPedido}">PEDIDOS</h1>
                                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </div>
                                                                 <div class="modal-body">
@@ -68,26 +67,20 @@
                                                                                 <th>Precio (s/)</th>
                                                                                 <th>Cantidad</th>
                                                                                 <th>Importe (s/)</th>
-                                                                                <th>Acciones</th> <!-- Agrega esta columna para el botón de eliminar -->
                                                                             </tr>
                                                                         </thead>
                                                                         <tbody>
-                                                                            <c:forEach items="${carrito}" var="item" varStatus="loop">
+                                                                            <c:forEach items="${item.detalles}" var="detalle">
                                                                                 <tr>
                                                                                     <td>
-                                                                                        <img src="assets/img/productos/${item.producto.imagen}" width="50" height="60" alt="${item.producto.nombre}"/>
+                                                                                        <img src="assets/img/productos/${detalle.producto.imagen}" width="50" height="60" alt="${detalle.producto.nombre}" />
                                                                                     </td>
-                                                                                    <td>${item.producto.nombre}</td>
-                                                                                    <td>${item.producto.precio}</td>
-                                                                                    <td>${item.cantidad}</td>
-                                                                                    <td>${item.Importe()}</td>
-                                                                                    <td>
-                                                                                        <a href="CarritoControlador?accion=eliminar&indice=${loop.index}" title="Eliminar" class="btn btn-danger btn-sm">
-                                                                                            <i class="fa fa-trash-alt"></i>
-                                                                                        </a>
-                                                                                    </td>
+                                                                                    <td>${detalle.producto.nombre}</td>
+                                                                                    <td>${detalle.producto.precio}</td>
+                                                                                    <td>${detalle.cantidad}</td>
+                                                                                    <td>${detalle.Importe()}</td>
                                                                                 </tr>
-                                                                            </c:forEach> 
+                                                                            </c:forEach>
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
@@ -97,11 +90,9 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
                                                 </td>
                                             </tr>
                                         </c:forEach>
-
                                     </tbody>
                                 </table>
                             </div>
@@ -109,11 +100,8 @@
                     </div>
                 </div>
                 <!-- Sección del Resumen de Compra -->
-
             </div>
         </div>
-
-
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
     </body>

@@ -134,9 +134,11 @@ public class PedidoDAO {
                 p.setImagen(rs.getString("imagen"));
                 p.setNombre(rs.getString("nombre"));
                 p.setPrecio(rs.getDouble("precio"));
+                d.setProducto(p); // Asociar el producto con el detalle
                 d.setCantidad(rs.getInt("cantidad"));
                 lista.add(d);
             }
+
         } catch (Exception ex) {
 
             ex.printStackTrace();

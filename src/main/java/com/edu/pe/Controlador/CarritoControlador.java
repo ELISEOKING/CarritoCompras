@@ -34,23 +34,9 @@ public class CarritoControlador extends HttpServlet {
             case "agregar":
                 Agregar(request, response);
                 break;
-            case "eliminar":
-                Eliminar(request, response);
-                break;
             default:
                 throw new AssertionError();
         }
-    }
-
-    protected void Eliminar(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        int indice = Integer.parseInt(request.getParameter("indice"));
-       
-        objCarrito.RemoverItemCarrito(request, indice);
-        
-        response.sendRedirect("CarritoControlador?accion=listar");
-
     }
 
     protected void Agregar(HttpServletRequest request, HttpServletResponse response)
