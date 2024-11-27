@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
  *
  * @author ENOC
@@ -26,39 +27,20 @@ public class CarritoControlador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         String accion = request.getParameter("accion");
-
         switch (accion) {
             case "listar":
                 Listar(request, response);
-
                 break;
             case "agregar":
                 Agregar(request, response);
                 break;
+            case "eliminar":
+                Eliminar(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
-    }
-
-    protected void Agregar(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        int id_prod = Integer.parseInt(request.getParameter("id"));
-        Producto obj = prodDAO.BuscarPorId(id_prod);
-
-        if (obj != null) {
-            DetallePedido objDet = new DetallePedido();
-            objDet.setProducto(obj);
-            objDet.setCantidad(1);
-
-            objCarrito.AgregarCarrito(objDet, request);
-
-        }
-
-        request.getRequestDispatcher(PagInicio).forward(request, response);
-
     }
 
     protected void Listar(HttpServletRequest request, HttpServletResponse response)
@@ -68,7 +50,32 @@ public class CarritoControlador extends HttpServlet {
         request.setAttribute("carrito", lista);
         request.setAttribute("total", objCarrito.ImporteTotal(lista));
         request.getRequestDispatcher(PagListarCarrito).forward(request, response);
+    }
 
+    protected void Agregar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        int idProd = Integer.parseInt(request.getParameter("id"));
+        Producto obj = prodDAO.BuscarPorId(idProd);
+
+        if (obj != null) {
+            DetallePedido objDet = new DetallePedido();
+            objDet.setProducto(obj);
+            objDet.setCantidad(1);
+
+            objCarrito.AgregarCarrito(objDet, request);
+        }
+        request.getRequestDispatcher(PagInicio).forward(request, response);
+    }
+
+    protected void Eliminar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        int indice = Integer.parseInt(request.getParameter("indice"));
+
+        objCarrito.RemoverItemCarrito(request, indice);
+
+        response.sendRedirect("CarritoControlador?accion=listar");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
