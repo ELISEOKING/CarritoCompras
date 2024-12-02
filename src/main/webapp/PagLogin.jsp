@@ -31,7 +31,7 @@
                             <hr/>
                             <form action="AuthControlador" method="post">
                                 <div class="mb-3 text-center">
-                                    <img src="assets/img/recursos/login.jpg" style="width: 200px;" alt="Login"/>
+                                    <img src="assets/img/recursos/login.jpg" style="width: 150px;" alt="Login"/>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-12">

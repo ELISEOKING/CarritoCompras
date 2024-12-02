@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <title>Catalogo</title>
+        <title>Mi Carrito</title>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <link href="assets/css/estilos.css" rel="stylesheet" type="text/css"/>
     </head>
@@ -38,7 +38,7 @@
                                             <th>Precio (s/)</th>
                                             <th>Cantidad</th>
                                             <th>Importe (s/)</th>
-                                            <th>Accion</th>
+                                            <th>Acción</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -49,19 +49,33 @@
                                                 </td>
                                                 <td>${item.producto.nombre}</td>
                                                 <td>${item.producto.precio}</td>
-                                                <td>${item.cantidad}</td>
+                                                <td>
+                                                    <div class="d-flex align-items-center">
+                                                        <!-- Botón para disminuir cantidad -->
+                                                        <a href="CarritoControlador?accion=disminuir&indice=${loop.index}" 
+                                                           class="btn btn-outline-secondary btn-sm me-1" title="Disminuir">
+                                                            <i class="fa fa-minus"></i>
+                                                        </a>
+                                                        <!-- Cantidad -->
+                                                        <span>${item.cantidad}</span>
+                                                        <!-- Botón para aumentar cantidad -->
+                                                        <a href="CarritoControlador?accion=aumentar&indice=${loop.index}" 
+                                                           class="btn btn-outline-secondary btn-sm ms-1" title="Aumentar">
+                                                            <i class="fa fa-plus"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
                                                 <td>${item.Importe()}</td>
                                                 <td>
                                                     <a href="CarritoControlador?accion=eliminar&indice=${loop.index}" title="Eliminar" class="btn btn-danger btn-sm">
                                                         <i class="fa fa-trash-alt"></i>
                                                     </a>
-
                                                 </td>
                                             </tr>
                                         </c:forEach>
                                         <c:if test="${!(carrito != null && carrito.size() > 0)}">
                                             <tr class="text-center">
-                                                <td colspan="6">Carrito Vacio!</td>
+                                                <td colspan="6">Carrito Vacío!</td>
                                             </tr>
                                         </c:if>
                                     </tbody>
@@ -92,7 +106,6 @@
                 </div>
             </div>
         </div>
-
 
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>

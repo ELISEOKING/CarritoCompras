@@ -38,6 +38,12 @@ public class CarritoControlador extends HttpServlet {
             case "eliminar":
                 Eliminar(request, response);
                 break;
+            case "aumentar":
+                Aumentar(request, response);
+                break;
+            case "disminuir":
+                Disminuir(request, response);
+                break;
             default:
                 throw new AssertionError();
         }
@@ -45,7 +51,6 @@ public class CarritoControlador extends HttpServlet {
 
     protected void Listar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         ArrayList<DetallePedido> lista = objCarrito.ObtenerSesion(request);
         request.setAttribute("carrito", lista);
         request.setAttribute("total", objCarrito.ImporteTotal(lista));
@@ -54,7 +59,6 @@ public class CarritoControlador extends HttpServlet {
 
     protected void Agregar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         int idProd = Integer.parseInt(request.getParameter("id"));
         Producto obj = prodDAO.BuscarPorId(idProd);
 
@@ -70,25 +74,62 @@ public class CarritoControlador extends HttpServlet {
 
     protected void Eliminar(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         int indice = Integer.parseInt(request.getParameter("indice"));
-
         objCarrito.RemoverItemCarrito(request, indice);
-
         response.sendRedirect("CarritoControlador?accion=listar");
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void Aumentar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int indice = Integer.parseInt(request.getParameter("indice"));
+
+        // Incrementar cantidad del ítem en el carrito
+        ArrayList<DetallePedido> carrito = objCarrito.ObtenerSesion(request);
+        if (indice >= 0 && indice < carrito.size()) {
+            DetallePedido item = carrito.get(indice);
+            item.setCantidad(item.getCantidad() + 1); // Incrementar cantidad
+        }
+
+        // Actualizar la sesión
+        objCarrito.ActualizarSesion(request, carrito);
+
+        // Redirigir a la página del carrito
+        response.sendRedirect("CarritoControlador?accion=listar");
+    }
+
+    protected void Disminuir(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int indice = Integer.parseInt(request.getParameter("indice"));
+
+        // Decrementar cantidad del ítem en el carrito
+        ArrayList<DetallePedido> carrito = objCarrito.ObtenerSesion(request);
+        if (indice >= 0 && indice < carrito.size()) {
+            DetallePedido item = carrito.get(indice);
+            if (item.getCantidad() > 1) {
+                item.setCantidad(item.getCantidad() - 1); // Decrementar cantidad
+            } else {
+                carrito.remove(indice); // Si la cantidad llega a 0, eliminar el producto del carrito
+            }
+        }
+
+        // Actualizar la sesión
+        objCarrito.ActualizarSesion(request, carrito);
+
+        // Redirigir a la página del carrito
+        response.sendRedirect("CarritoControlador?accion=listar");
+    }
+
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+/**
+ * Handles the HTTP <code>GET</code> method.
+ *
+ * @param request servlet request
+ * @param response servlet response
+ * @throws ServletException if a servlet-specific error occurs
+ * @throws IOException if an I/O error occurs
+ */
+@Override
+protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -102,7 +143,7 @@ public class CarritoControlador extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -113,7 +154,7 @@ public class CarritoControlador extends HttpServlet {
      * @return a String containing servlet description
      */
     @Override
-    public String getServletInfo() {
+public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 

@@ -1,16 +1,18 @@
-
 package com.edu.pe.Modelo;
 
 public class DetallePedido {
+
     private Producto producto;
     private int cantidad;
-    
-    public void AumentarCantidad(int cantidad){
-        this.cantidad += cantidad;
+
+    public void AumentarCantidad(int cantidad) {
+        if (this.cantidad + cantidad > 0) {
+            this.cantidad += cantidad;
+        }
     }
-    
-    public double Importe(){
-        return  producto.getPrecio() * cantidad;
+
+    public double Importe() {
+        return producto.getPrecio() * cantidad;
     }
 
     public Producto getProducto() {
@@ -28,5 +30,5 @@ public class DetallePedido {
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
-    
+
 }
